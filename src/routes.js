@@ -28,22 +28,19 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
         iterCount = random.poisson(lambda=mean)() + 1;
     }
 
-    console.log({
-        meanResponse: mean,
-        handle,
-        reqType,
-        nextService,
-        iterCount,
-        restOfParams,
-        mean
-    });
+    // console.log({
+    //     meanResponse: mean,
+    //     handle,
+    //     reqType,
+    //     nextService,
+    //     iterCount,
+    //     restOfParams,
+    //     mean
+    // });
 
-    let count = 0;
-    for(let i = 0;i < iterCount * 10000; i++){
-        if (i%5 == 0){
-            count += 1;
-        }
-    }
+    let beg = new Date().getTime();
+    
+    while(new Date().getTime() < beg + iterCount){}
     processSpan.finish();
 
     if (req.params.handle.length > reqTypeStrLength + 1){

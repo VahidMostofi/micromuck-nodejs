@@ -1,0 +1,177 @@
+version: '3'
+
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 8G
+        reservations:
+          cpus: "1"
+          memory: 6G
+###############################################
+  service-a:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10080:10080
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-a
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10080
+      - MEAN_RESPONSE_TIMES={"req1":-1, "req2":-1, "req3":-1, "req4":-1, "req5":-1}
+###############################################
+  service-b:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10081:10081
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-b
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10081
+      - MEAN_RESPONSE_TIMES={"req1":3, "req2":5, "req3":2, "req4":4, "req5":8}
+###############################################
+  service-c:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10082:10082
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-c
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10082
+      - MEAN_RESPONSE_TIMES={"req1":3, "req2":5, "req3":2, "req4":21, "req5":12}
+###############################################
+  service-d:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10083:10083
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-d
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10083
+      - MEAN_RESPONSE_TIMES={"req1":2,"req2":1,"req3":11,"req4":14,"req5":2}
+###############################################
+  service-e:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10084:10084
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-e
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10084
+      - MEAN_RESPONSE_TIMES={"req1":3,"req2":1,"req3":5,"req4":16,"req5":8}
+###############################################
+  service-f:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10085:10085
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-f
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10085
+      - MEAN_RESPONSE_TIMES={"req1":8,"req2":2,"req3":1,"req4":21,"req5":15}
+###############################################
+  service-g:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10086:10086
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-g
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10086
+      - MEAN_RESPONSE_TIMES={"req1":3,"req2":2,"req3":12,"req4":23,"req5":19}
+###############################################
+  service-h:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10087:10087
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-h
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10087
+      - MEAN_RESPONSE_TIMES={"req1":5,"req2":2,"req3":3,"req4":11,"req5":13}
+###############################################
+  service-i:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10088:10088
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-i
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10088
+      - MEAN_RESPONSE_TIMES={"req1":2,"req2":2,"req3":10,"req4":12,"req5":18}
+###############################################
+  service-j:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10089:10089
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=service-j
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10089
+      - MEAN_RESPONSE_TIMES={"req1":3,"req2":9,"req3":12,"req4":19,"req5":15}

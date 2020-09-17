@@ -16,24 +16,27 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
     const mainSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers);
     const processSpan = tracer.startSpan("process", {childOf: mainSpanContext});
 
+    const reqTypeStrLength = req.params.handle.lastIndexOf('_') - req.params.handle.lastIndexOf('/') - 1;
     const handle = req.params.handle;
-    const reqType = req.params.handle.substring(0,4);
-    const nextService = req.params.handle[4];
-    const restOfParams = req.params.handle.substring(5);
+    const reqType = req.params.handle.substring(0,reqTypeStrLength);
+    const nextService = req.params.handle[reqTypeStrLength+1];
+    const restOfParams = req.params.handle.substring(reqTypeStrLength+2);
+
     const mean = responseTimes[reqType];
     let iterCount = 0;
     if(mean >= 0){
-        random.poisson(lambda=mean)() + 1;
+        iterCount = random.poisson(lambda=mean)() + 1;
     }
 
-    // console.log({
-    //     handle,
-    //     reqType,
-    //     nextService,
-    //     iterCount,
-    //     restOfParams,
-    //     mean
-    // });
+    console.log({
+        meanResponse: mean,
+        handle,
+        reqType,
+        nextService,
+        iterCount,
+        restOfParams,
+        mean
+    });
 
     let count = 0;
     for(let i = 0;i < iterCount * 10000; i++){
@@ -43,7 +46,7 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
     }
     processSpan.finish();
 
-    if (req.params.handle.length > 4){
+    if (req.params.handle.length > reqTypeStrLength + 1){
         const callSpan = tracer.startSpan("call", {childOf: mainSpanContext});
         const reqHeaders = {};
         tracer.inject(callSpan, FORMAT_HTTP_HEADERS, reqHeaders);
@@ -52,7 +55,7 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
             headers: reqHeaders
         });
 
-        API.get('/main/' + reqType + restOfParams)
+        API.get('/main/' + reqType + '_' + restOfParams)
         .then(()=>{
             callSpan.finish();
             return res.status(200).end();

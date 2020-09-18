@@ -14,9 +14,9 @@ services:
           memory: 8G
         reservations:
           cpus: "1"
-          memory: 6G
+          memory: 1G
 ###############################################
-  service-a:
+  servicea:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -26,13 +26,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-a
+      - SERVICE_NAME=servicea
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10080
       - MEAN_RESPONSE_TIMES={"req1":-1, "req2":-1, "req3":-1, "req4":-1, "req5":-1}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-b:
+  serviceb:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -42,13 +51,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-b
+      - SERVICE_NAME=serviceb
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10081
-      - MEAN_RESPONSE_TIMES={"req1":3, "req2":5, "req3":2, "req4":4, "req5":8}
+      - MEAN_RESPONSE_TIMES={"req1":8, "req2":5, "req3":21, "req4":4, "req5":8}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-c:
+  servicec:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -58,13 +76,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-c
+      - SERVICE_NAME=servicec
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10082
-      - MEAN_RESPONSE_TIMES={"req1":3, "req2":5, "req3":2, "req4":21, "req5":12}
+      - MEAN_RESPONSE_TIMES={"req1":8, "req2":15, "req3":18, "req4":21, "req5":23}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-d:
+  serviced:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -74,13 +101,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-d
+      - SERVICE_NAME=serviced
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10083
-      - MEAN_RESPONSE_TIMES={"req1":2,"req2":1,"req3":11,"req4":14,"req5":2}
+      - MEAN_RESPONSE_TIMES={"req1":7,"req2":17,"req3":17,"req4":14,"req5":27}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-e:
+  servicee:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -90,13 +126,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-e
+      - SERVICE_NAME=servicee
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10084
-      - MEAN_RESPONSE_TIMES={"req1":3,"req2":1,"req3":5,"req4":16,"req5":8}
+      - MEAN_RESPONSE_TIMES={"req1":10,"req2":20,"req3":15,"req4":26,"req5":8}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-f:
+  servicef:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -106,13 +151,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-f
+      - SERVICE_NAME=servicef
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10085
-      - MEAN_RESPONSE_TIMES={"req1":8,"req2":2,"req3":1,"req4":21,"req5":15}
+      - MEAN_RESPONSE_TIMES={"req1":13,"req2":3,"req3":5,"req4":21,"req5":23}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-g:
+  serviceg:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -122,13 +176,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-g
+      - SERVICE_NAME=serviceg
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10086
-      - MEAN_RESPONSE_TIMES={"req1":3,"req2":2,"req3":12,"req4":23,"req5":19}
+      - MEAN_RESPONSE_TIMES={"req1":9,"req2":12,"req3":12,"req4":23,"req5":19}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-h:
+  serviceh:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -138,13 +201,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-h
+      - SERVICE_NAME=serviceh
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10087
-      - MEAN_RESPONSE_TIMES={"req1":5,"req2":2,"req3":3,"req4":11,"req5":13}
+      - MEAN_RESPONSE_TIMES={"req1":12,"req2":15,"req3":3,"req4":11,"req5":23}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-i:
+  servicei:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -154,13 +226,22 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-i
+      - SERVICE_NAME=servicei
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10088
-      - MEAN_RESPONSE_TIMES={"req1":2,"req2":2,"req3":10,"req4":12,"req5":18}
+      - MEAN_RESPONSE_TIMES={"req1":12,"req2":12,"req3":10,"req4":12,"req5":22}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G
 ###############################################
-  service-j:
+  servicej:
     image: vahidmostofi/micromuck-nodejs:v1
     build:
       dockerfile: Dockerfile
@@ -170,8 +251,17 @@ services:
     depends_on: 
       - jaeger
     environment:
-      - SERVICE_NAME=service-j
+      - SERVICE_NAME=servicej
       - WORKER_COUNT=1
       - SEED=9
       - PORT=10089
-      - MEAN_RESPONSE_TIMES={"req1":3,"req2":9,"req3":12,"req4":19,"req5":15}
+      - MEAN_RESPONSE_TIMES={"req1":13,"req2":19,"req3":12,"req4":19,"req5":25}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "1"
+          memory: 0.7G

@@ -48,7 +48,7 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
         const reqHeaders = {};
         tracer.inject(callSpan, FORMAT_HTTP_HEADERS, reqHeaders);
         const API = axios.create({
-            baseURL: 'http://service-'+nextService+':1008' + (nextService.charCodeAt(0) - 'a'.charCodeAt(0)),
+            baseURL: 'http://service'+nextService+':1008' + (nextService.charCodeAt(0) - 'a'.charCodeAt(0)),
             headers: reqHeaders
         });
 

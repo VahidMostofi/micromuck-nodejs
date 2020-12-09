@@ -14,4 +14,7 @@ COPY . .
 
 EXPOSE 8080
 
+# HEALTHCHECK --interval=10s --timeout=2s --start-period=5s \  
+#     CMD node ./healthcheck.js
+
 CMD [ "node", "src/app.js" ]

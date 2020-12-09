@@ -8,9 +8,13 @@ const {trackMiddleware, tracer} = require('./trace_utils');
 
 const router = express.Router();
 
-router.get('/health',[trackMiddleware('health')], async (req,res) => {
+router.get('/health', async (req,res) => {
     res.status(200).end();
 });
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 
 router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
     const mainSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers);
@@ -28,19 +32,28 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
         iterCount = random.poisson(lambda=mean)() + 1;
     }
 
-    // console.log({
-    //     meanResponse: mean,
-    //     handle,
-    //     reqType,
-    //     nextService,
-    //     iterCount,
-    //     restOfParams,
-    //     mean
-    // });
+    const info = {
+        meanResponse: mean,
+        handle,
+        reqType,
+        nextService,
+        iterCount,
+        restOfParams,
+        mean
+    }
 
-    let beg = new Date().getTime();
-    
-    while(new Date().getTime() < beg + iterCount){}
+    let beg = new Date().getTime();    
+    let sum = 0;
+    for(let i = 0; i < iterCount * 23000; i++){
+        if (i%2==0){
+            sum += getRandomInt(5);
+        }else{
+            sum -= getRandomInt(5)
+        }
+    }
+    // while(new Date().getTime() < beg + serviceTime){}
+    info.took = new Date().getTime() - beg;
+    console.log(info);
     processSpan.finish();
 
     if (req.params.handle.length > reqTypeStrLength + 1){
@@ -49,6 +62,7 @@ router.get('/main/:handle',[trackMiddleware('main')], (req, res) => {
         tracer.inject(callSpan, FORMAT_HTTP_HEADERS, reqHeaders);
         const API = axios.create({
             baseURL: 'http://service'+nextService+':1008' + (nextService.charCodeAt(0) - 'a'.charCodeAt(0)),
+            // timeout: 3000,
             headers: reqHeaders
         });
 

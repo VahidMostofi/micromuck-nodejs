@@ -1,0 +1,92 @@
+version: '3'
+
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 8G
+        reservations:
+          cpus: "0.25"
+          memory: 1G
+###############################################
+  servicea:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10080:10080
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=servicea
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10080
+      - MEAN_RESPONSE_TIMES={"req1":-1, "req2":-1, "req3":-1, "req4":-1, "req5":-1}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "0.25"
+          memory: 0.7G
+###############################################
+  serviceb:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10081:10081
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=serviceb
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10081
+      - MEAN_RESPONSE_TIMES={"req1":-1, "req2":-1, "req3":-1, "req4":-1, "req5":-1}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "0.25"
+          memory: 0.7G
+###############################################
+  servicec:
+    image: vahidmostofi/micromuck-nodejs:v1
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 10082:10082
+    depends_on: 
+      - jaeger
+    environment:
+      - SERVICE_NAME=servicec
+      - WORKER_COUNT=1
+      - SEED=9
+      - PORT=10082
+      - MEAN_RESPONSE_TIMES={"req1":-1, "req2":-1, "req3":-1, "req4":-1, "req5":-1}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 3G
+        reservations:
+          cpus: "0.25"
+          memory: 0.7G

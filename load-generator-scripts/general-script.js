@@ -25,7 +25,7 @@ const linearArchitecture = [
   {'prob': ARG_req2, 'path': '/main/req2_bcdefghij'},
   {'prob': ARG_req3, 'path': '/main/req3_bcdefghij'},
   {'prob': ARG_req4, 'path': '/main/req4_bcdefghij'},
-  {'prob': ARG_req5, 'path': '/main/req5_bcdefghij'},
+  // {'prob': ARG_req5, 'path': '/main/req5_bcdefghij'},
 ]
 //-------------------TWO-LINE_ARCHITECTURE---------------------
 const twoLineArchitecture = [
@@ -33,7 +33,7 @@ const twoLineArchitecture = [
   {'prob': ARG_req2, 'path': '/main/req2_cdefghj'},
   {'prob': ARG_req3, 'path': '/main/req3_bdfghi'},
   {'prob': ARG_req4, 'path': '/main/req4_egij'},
-  {'prob': ARG_req5, 'path': '/main/req5_hj'},
+  // {'prob': ARG_req5, 'path': '/main/req5_hj'},
 ]
 //-------------------BOX_ARCHITECTURE---------------------
 const boxArchitecture = [
@@ -41,7 +41,7 @@ const boxArchitecture = [
   {'prob': ARG_req2, 'path': '/main/req2_dgh'},
   {'prob': ARG_req3, 'path': '/main/req3_cefi'},
   {'prob': ARG_req4, 'path': '/main/req4_bh'},
-  {'prob': ARG_req5, 'path': '/main/req5_dgfj'},
+  // {'prob': ARG_req5, 'path': '/main/req5_dgfj'},
 ]
 //-------------------TWO-LAYERS---------------------
 const twoLayersArchitecture = [
@@ -49,7 +49,7 @@ const twoLayersArchitecture = [
   {'prob': ARG_req2, 'path': '/main/req2_ch'},
   {'prob': ARG_req3, 'path': '/main/req3_di'},
   {'prob': ARG_req4, 'path': '/main/req4_ej'},
-  {'prob': ARG_req5, 'path': '/main/req5_fj'},
+  // {'prob': ARG_req5, 'path': '/main/req5_fj'},
 ]
 //-------------------STAR---------------------
 const starArchitecture = [
@@ -57,7 +57,15 @@ const starArchitecture = [
   {'prob': ARG_req2, 'path': '/main/req2_cfh'},
   {'prob': ARG_req3, 'path': '/main/req3_dfi'},
   {'prob': ARG_req4, 'path': '/main/req4_cfj'},
-  {'prob': ARG_req5, 'path': '/main/req5_efj'},
+  // {'prob': ARG_req5, 'path': '/main/req5_efj'},
+]
+
+//-------------------STAR---------------------
+const smallStarArchitecture = [
+  {'prob': ARG_req1, 'path': '/main/req1_bde'},
+  {'prob': ARG_req2, 'path': '/main/req2_bdf'},
+  {'prob': ARG_req3, 'path': '/main/req3_cde'},
+  {'prob': ARG_req4, 'path': '/main/req4_cdf'},
 ]
 
 const architecture = ARG_ARCHITECTURE;
